@@ -1,3 +1,5 @@
+const registerMapHanlders = require('../handlers/map');
+
 class Sockets {
   constructor(io) {
     this.io = io;
@@ -6,18 +8,14 @@ class Sockets {
   }
 
   onConnection(socket) {
-    registerTicketHandlers({
+    registerMapHanlders({
       io: this.io,
       socket,
     });
   }
 
   socketEvents() {
-    this.io.on('connection', (socket) => {
-      socket.on('message-to-server', (data) => {
-        this.io.emit('message-from-server', data);
-      });
-    });
+    this.io.on('connection', this.onConnection);
   }
 }
 
