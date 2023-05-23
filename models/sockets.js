@@ -1,7 +1,15 @@
 class Sockets {
   constructor(io) {
     this.io = io;
-    this.socketEvents()
+    this.socketEvents();
+    this.onConnection = this.onConnection.bind(this);
+  }
+
+  onConnection(socket) {
+    registerTicketHandlers({
+      io: this.io,
+      socket,
+    });
   }
 
   socketEvents() {
